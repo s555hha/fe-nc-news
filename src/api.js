@@ -1,15 +1,16 @@
-import axios from "axios";
+import axios from "axios"
 
 const Api = axios.create({
   baseURL: "https://my-nc-news-2dfw.onrender.com/api",
-});
+})
 
-const getArticles = () => {
-  return Api.get('/articles').then(({ data }) => {
-    return data.articles;
-  });
-};
-
-export default getArticles
-
-  
+export const getArticles = () => {
+  return Api.get("/articles").then(({ data }) => {
+    return data.articles
+  })
+}
+export const getArticleById = (articleId) => {
+  return Api.get(`/articles/${articleId}`).then(({ data }) => {
+    return data.article
+  })
+}
