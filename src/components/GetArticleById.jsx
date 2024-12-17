@@ -1,6 +1,7 @@
 import { getArticleById } from "../api"
 import { useParams } from "react-router"
 import { useState, useEffect } from "react"
+import CommentList from "./CommentList"
 
 function GetArticleById() {
   const params = useParams()
@@ -33,13 +34,14 @@ function GetArticleById() {
     <section className="full-article">
       <h3>{article.title}</h3>
       <p>Author: {article.author}</p>
-      <p>Created on: {article.created_at.slice(0, 10)}</p>
       <img
         className="full-article-image"
         src={article.article_img_url}
         alt={article.title}
       />
+      <p>Created on: {article.created_at.slice(0, 10)}</p>
       <p>{article.body}</p>
+      <CommentList articleId={articleId} />
     </section>
   )
 }
