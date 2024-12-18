@@ -23,7 +23,7 @@ function CommentList({ articleId }) {
     return <h2>Loading...</h2>
   }
   if (isError) {
-    return <p>Sorry unable to return the data</p>
+    return <p>Sorry no comments available</p>
   }
 
   return (

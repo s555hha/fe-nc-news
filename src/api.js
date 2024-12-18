@@ -19,3 +19,8 @@ export const getComments = (articleId) => {
     return data.comments
   })
 }
+export const articleVotes = (articleId, changeVote) => {
+  return api.patch(`/articles/${articleId}`, {
+    inc_votes: changeVote,
+  })
+};
