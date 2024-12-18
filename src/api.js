@@ -23,4 +23,11 @@ export const articleVotes = (articleId, changeVote) => {
   return api.patch(`/articles/${articleId}`, {
     inc_votes: changeVote,
   })
-};
+}
+export const addComment = (articleId, username, commentBody) => {
+  return api.post(`/articles/${articleId}/comments`, {
+    username: username,
+    body: commentBody,
+  })
+}
+
