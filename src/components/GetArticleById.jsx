@@ -2,6 +2,9 @@ import { getArticleById } from "../api"
 import { useParams } from "react-router"
 import { useState, useEffect } from "react"
 import CommentList from "./CommentList"
+import Vote from "./votes"
+import { Card, CardHeader, CardMedia, Typography, CardActions, IconButton } from "@mui/material";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 function GetArticleById() {
   const params = useParams()
@@ -12,7 +15,7 @@ function GetArticleById() {
 
   useEffect(() => {
     getArticleById(articleId)
-      .then((article) => {
+      .then((article) => { 
         setArticle(article)
         setIsLoading(false)
       })
@@ -21,6 +24,13 @@ function GetArticleById() {
         setIsError(true)
       })
   }, [articleId])
+
+  // function handleVoteChange(updatedVotes) {
+  //   setArticle((article) => ({
+  //     ...article,
+  //     votes: updatedVotes,
+  //   }));
+  // };
 
   if (isLoading) {
     return <h2>Loading...</h2>
@@ -31,18 +41,70 @@ function GetArticleById() {
   }
 
   return (
-    <section className="full-article">
-      <h3>{article.title}</h3>
-      <p>Author: {article.author}</p>
-      <img
-        className="full-article-image"
-        src={article.article_img_url}
+    <Card
+      sx={{
+        width: "100%",
+        margin: "auto",
+        display: "flex",
+        flexDirection: "column",
+        marginTop: 2,
+        marginBottom: 2,
+        backgroundColor: "#f9f9f9", 
+        "@media (max-width:600px)": {
+          maxWidth: "100%",
+        },
+      }}
+    >
+      <CardHeader
+        title={article.title}
+        subheader={`By ${article.author} | Created on: ${article.created_at.slice(0, 10)}`}
+        sx={{
+          backgroundColor: "#e1e1e1", 
+          textAlign: 'center', 
+        }}
+      />
+
+      <CardMedia
+        component="img"
+        height="194"
+        width="100%"
+        image={article.article_img_url}
         alt={article.title}
       />
-      <p>Created on: {article.created_at.slice(0, 10)}</p>
-      <p>{article.body}</p>
-      <CommentList articleId={articleId} />
-    </section>
+
+      <Typography
+        variant="body2"
+        color="textSecondary"
+        sx={{
+          padding: 2,
+          backgroundColor: '#ffffff',
+          fontStyle: 'italic',
+        }}
+      >
+        {article.body}
+      </Typography>
+
+      <CardActions disableSpacing sx={{ display: 'flex', alignItems: 'center', padding: 2 }}>
+        <IconButton aria-label="vote">
+          <ThumbUpIcon />
+        </IconButton>
+        <Typography variant="body2" color="textSecondary" sx={{ marginRight: 2 }}>
+          {article.votes}
+        </Typography>
+
+        <Vote
+          articleId={articleId}
+          currentVotes={article.votes}
+          setArticle={setArticle}
+          // onVoteChange={handleVoteChange}
+        />
+      </CardActions>
+      <section>
+        <Typography variant="h6" sx={{ paddingLeft: 2, paddingTop: 2 }}>
+        </Typography>
+        <CommentList articleId={articleId} />
+      </section>
+    </Card>
   )
 }
 

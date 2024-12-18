@@ -1,21 +1,47 @@
-import { Link } from "react-router-dom"
+import React from 'react';
+import { Link } from "react-router-dom";
+import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 
 function Header() {
   return (
-    <header>
-      <h2>NC News</h2>
-      <nav>
-        <ul className="nav-link">
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/articles">Articles</Link>
-          </li>
-        </ul>
-      </nav>
-    </header>
-  )
+    <AppBar position="sticky">
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Typography variant="h3" sx={{ color: '#fff' }}>
+          NC NEWS
+        </Typography>
+        
+        <Box>
+          <Button 
+            component={Link} 
+            to="/" 
+            sx={{
+              color: 'white', 
+              marginRight: 2, 
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.08)', 
+              },
+            }}
+          >
+            Home
+          </Button>
+
+          <Button 
+            component={Link} 
+            to="/articles" 
+            sx={{
+              color: 'white', 
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.08)', 
+              },
+            }}
+          >
+            Articles
+          </Button>
+        </Box>
+      </Toolbar>
+    </AppBar>
+  );
 }
 
-export default Header
+export default Header;
+
