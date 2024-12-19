@@ -30,4 +30,7 @@ export const addComment = (articleId, username, commentBody) => {
     body: commentBody,
   })
 }
+export const deleteComment = (commentId) => {
+  return api.delete(`/comments/${commentId}`);
+};
 
