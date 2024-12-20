@@ -3,7 +3,6 @@ import Card from "@mui/material/Card"
 import CardHeader from "@mui/material/CardHeader"
 import CardMedia from "@mui/material/CardMedia"
 import Typography from "@mui/material/Typography"
-import IconButton from "@mui/material/IconButton"
 import CardActions from "@mui/material/CardActions"
 import ThumbUpIcon from "@mui/icons-material/ThumbUp"
 import CommentIcon from "@mui/icons-material/Comment"
@@ -37,9 +36,7 @@ function ArticleCards({ article }) {
         disableSpacing
         sx={{ display: "flex", alignItems: "center" }}
       >
-        <IconButton aria-label="vote">
-          <ThumbUpIcon />
-        </IconButton>
+          <ThumbUpIcon sx={{ marginRight: 1 }}/>
         <Typography
           variant="body2"
           color="textSecondary"
@@ -47,10 +44,7 @@ function ArticleCards({ article }) {
         >
           {article.votes}
         </Typography>
-
-        <IconButton aria-label="comment">
-          <CommentIcon />
-        </IconButton>
+          <CommentIcon sx={{ marginRight: 1 }} />
         <Typography
           variant="body2"
           color="textSecondary"

@@ -1,63 +1,61 @@
-import React, { useState, useEffect } from "react"
-import { articleVotes } from "../api"
-import { Button, Typography } from "@mui/material"
-import ThumbUpIcon from "@mui/icons-material/ThumbUp"
-import ThumbDownIcon from "@mui/icons-material/ThumbDown"
+import React, { useState, useEffect } from "react";
+import { articleVotes, getArticleById } from "../api"; 
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import { Typography } from "@mui/material";
 
 function Vote({ articleId, currentVotes, setArticle }) {
-  const [votes, setVotes] = useState(currentVotes)
-  const [isError, setIsError] = useState(false)
+  const [votes, setVotes] = useState(currentVotes);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    setVotes(currentVotes)
-  }, [currentVotes])
+    setVotes(currentVotes); 
+  }, [currentVotes]);
+
+  function updateVotes(inc_votes) {
+    articleVotes(articleId, inc_votes)
+      .then(() => {
+        getArticleById(articleId)
+          .then((article) => {
+            setArticle(article);  
+            setVotes(article.votes); 
+          })
+          .catch(() => {
+            setIsError(true); 
+          });
+      })
+      .catch(() => {
+        setVotes(votes); 
+        setIsError(true);  
+      });
+  };
 
   function handleIncrement() {
-    articleVotes(articleId, 1)
-    .catch(() => {
-        setVotes((currentVotes) => {
-            return currentVotes - 1;
-        })
-    })
-    setVotes((currentVotes) => currentVotes + 1);
-  }
-
+    updateVotes(1)
+  }   
   function handleDecrement() {
-    articleVotes(articleId, -1)
-    .catch(() => {
-        setVotes((currentVotes) => {
-            return currentVotes + 1
-        })
-    })
-    setVotes((currentVotes) => currentVotes - 1);
-  }
-
+    updateVotes(-1)
+  }; 
 
   if (isError) {
-    return <p>Sorry vote update failed</p>
+    return <p>Sorry, vote update failed.</p>; 
   }
 
   return (
     <div>
       <Typography variant="h6">Votes: {votes}</Typography>
-      <Button
-        color="success"
-        onClick={handleIncrement}
-        variant="contained"
-        startIcon={<ThumbUpIcon />}
-      >
-        Like
-      </Button>
-      <Button
-        color="error"
-        onClick={handleDecrement}
-        variant="contained"
-        startIcon={<ThumbDownIcon />}
-      >
-        Dislike
-      </Button>
+      <div>
+        <ThumbUpIcon
+          onClick={handleIncrement}
+          sx={{ cursor: "pointer", marginRight: 2 }}
+        />
+        <ThumbDownIcon
+          onClick={handleDecrement}
+          sx={{ cursor: "pointer" }}
+        />
+      </div>
     </div>
-  )
+  );
 }
 
-export default Vote
+export default Vote;

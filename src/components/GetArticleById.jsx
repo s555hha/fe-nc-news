@@ -11,7 +11,6 @@ import {
   CardMedia,
   Typography,
   CardActions,
-  IconButton,
 } from "@mui/material"
 import ThumbUpIcon from "@mui/icons-material/ThumbUp"
 
@@ -40,6 +39,12 @@ function GetArticleById() {
 
   if (isError) {
     return <p>Sorry unable to return the data</p>
+  }
+  function updateVotes(newVoteCount) {
+    setArticle((article) => ({
+      ...article,
+      votes: newVoteCount,
+    }))
   }
 
   return (
@@ -92,9 +97,8 @@ function GetArticleById() {
         disableSpacing
         sx={{ display: "flex", alignItems: "center", padding: 2 }}
       >
-        <IconButton aria-label="vote">
-          <ThumbUpIcon />
-        </IconButton>
+          <ThumbUpIcon sx={{ marginRight: 1 }}/>
+
         <Typography
           variant="body2"
           color="textSecondary"
@@ -107,6 +111,7 @@ function GetArticleById() {
         articleId={articleId}
         currentVotes={article.votes}
         setArticle={setArticle}
+        setVotes={updateVotes}
       />
 
       <CommentForm setArticle={setArticle} />
@@ -123,3 +128,6 @@ function GetArticleById() {
 }
 
 export default GetArticleById
+
+
+
