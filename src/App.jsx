@@ -5,6 +5,7 @@ import Footer from "./components/Footer"
 import Home from "./components/Home"
 import GetArticleById from "./components/GetArticleById"
 import "./App.css"
+import TopicsList from "./components/TopicsList"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           path="/articles/:article_id"
           element={<GetArticleById />}
         ></Route>
+         <Route path="/topics" element={<TopicsList />}></Route>
       </Routes>
       <Footer />
     </>

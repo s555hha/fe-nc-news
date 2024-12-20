@@ -4,11 +4,28 @@ const api = axios.create({
   baseURL: "https://my-nc-news-2dfw.onrender.com/api",
 })
 
-export const getArticles = () => {
-  return api.get("/articles").then(({ data }) => {
-    return data.articles
+// export const getArticles = () => {
+//   return api.get("/articles").then(({ data }) => {
+//     return data.articles
+//   })
+// }
+export const getArticles = (topicName, sortBy , orderBy ) => {
+  return api.get('/articles', {
+    params: {
+      topic: topicName, 
+      sort_by: sortBy,  
+      order_by: orderBy    
+    }
   })
+  .then(({ data }) => {
+    return data.articles; 
+  })
+  .catch((error) => {
+    console.error("Error fetching articles:", error);
+    throw error;
+  });
 }
+
 export const getArticleById = (articleId) => {
   return api.get(`/articles/${articleId}`).then(({ data }) => {
     return data.article
@@ -31,6 +48,11 @@ export const addComment = (articleId, username, commentBody) => {
   })
 }
 export const deleteComment = (commentId) => {
-  return api.delete(`/comments/${commentId}`);
-};
+  return api.delete(`/comments/${commentId}`)
+}
+export const getTopics = () => {
+  return api.get('/topics').then(({ data }) => {
+    return data.topics
+  })
+}
 

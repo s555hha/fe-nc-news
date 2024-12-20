@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getComments } from "../api"
 import CommentCard from "./CommentCard"
+import { Typography } from "@mui/material"
 
 function CommentList({ articleId }) {
   const [comments, setComments] = useState([])
@@ -27,14 +28,31 @@ function CommentList({ articleId }) {
   }
 
   return (
-    <section>
-      <h2>Comments</h2>
-      <ul>
-        {comments.map((comment) => {
-          return <CommentCard key={comment.comment_id} comment={comment} />
-        })}
-      </ul>
-    </section>
+    // <section>
+    //   <h2>Comments</h2>
+    //   <ul>
+    //     {comments.map((comment) => {
+    //       return <CommentCard key={comment.comment_id} comment={comment} />
+    //     })}
+    //   </ul>
+    // </section>
+
+        <section>
+        <Typography variant="h5" sx={{ marginBottom: 2 }}>
+          Comments
+        </Typography>
+        <ul style={{ paddingLeft: 0 }}>
+          {comments.length === 0 ? (
+            <Typography variant="body2" color="textSecondary">
+              No comments available for this article.
+            </Typography>
+          ) : (
+            comments.map((comment) => (
+              <CommentCard key={comment.comment_id} comment={comment} />
+            ))
+          )}
+        </ul>
+      </section>
   )
 }
 
