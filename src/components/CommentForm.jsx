@@ -55,7 +55,7 @@ function CommentForm({ setArticle }) {
         autoHideDuration={3000}
       />
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id="comment-form">
         <TextField
           label="Your Comment"
           variant="outlined"
@@ -72,7 +72,7 @@ function CommentForm({ setArticle }) {
           type="submit"
           variant="contained"
           color="primary"
-          disabled={isLoading || !comment.trim()} 
+          disabled={isLoading} 
         >
           {isLoading ? (
             <CircularProgress size={30} color="inherit" />

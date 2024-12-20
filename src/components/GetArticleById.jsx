@@ -2,7 +2,7 @@ import { getArticleById } from "../api"
 import { useParams } from "react-router"
 import { useState, useEffect } from "react"
 import CommentList from "./CommentList"
-import Vote from "./votes"
+import Vote from "./Votes"
 import CommentForm from "./CommentForm"
 
 import {
@@ -33,13 +33,6 @@ function GetArticleById() {
         setIsError(true)
       })
   }, [articleId])
-
-  // function handleVoteChange(updatedVotes) {
-  //   setArticle((article) => ({
-  //     ...article,
-  //     votes: updatedVotes,
-  //   }));
-  // };
 
   if (isLoading) {
     return <h2>Loading...</h2>
@@ -114,10 +107,9 @@ function GetArticleById() {
         articleId={articleId}
         currentVotes={article.votes}
         setArticle={setArticle}
-        // onVoteChange={handleVoteChange}
       />
 
-        <CommentForm setArticle={setArticle} />
+      <CommentForm setArticle={setArticle} />
 
       <section>
         <Typography
